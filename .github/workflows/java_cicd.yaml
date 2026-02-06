@@ -52,7 +52,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: HelloWorldFx-Executable
-        path: *.deb
+        path: "*.deb"
 
     - name: Relase
       uses: softprops/action-gh-release@v2
