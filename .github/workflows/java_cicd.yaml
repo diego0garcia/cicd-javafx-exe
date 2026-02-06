@@ -55,10 +55,10 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: HelloWorldFx-Executable
-        path: HelloWorld.deb
+        path: dist/*.deb
 
     - name: Relase
-      uses: actions/action-gh-release@v2
+      uses: softprops/action-gh-release@v2
       if: github.ref_type == 'tag'
       with:
-       files: "*.deb"
+       files: "dist/*.deb"
