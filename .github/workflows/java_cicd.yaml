@@ -2,9 +2,17 @@ name: JavaFX Compile and Exe
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    tags:
+      #Para todos los tags - "*"
+      - "v*"
+  #Para puses a main
+  #push:
+  #  branches: [ "main" ]
+  #pull_request:
+  #  branches: [ "main" ]
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -43,9 +51,14 @@ jobs:
           --module-path javafx-sdk/javafx-sdk-17.0.10/lib \
           --add-modules javafx.controls \
 
-
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: HelloWorldFx-Installer
-        path: dist/*.deb
+        name: HelloWorldFx-Executable
+        path: HelloWorld.deb
+
+    - name: Relase
+      uses: actions/action-gh-release@v2
+      if: github.ref_type == 'tag'
+      with:
+       files: "*.deb"
